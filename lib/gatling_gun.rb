@@ -52,6 +52,43 @@ class GatlingGun
   def delete_newsletter(newsletter)
     make_api_call("delete", :name => newsletter)
   end
+
+  CLONED_FIELDS = ['identity', 'subject', 'text', 'html']
+  def clone_newsletter(newsletter, dest_name)
+    response = get_newsletter(newsletter)
+    return response unless response.success?
+
+    details = {}
+    CLONED_FIELDS.each {|f| details[f] = response[f] if response[f].present?}
+    add_newsletter(dest_name, details)
+  end
+  
+  ##################
+  ### Categories ###
+  ##################
+  
+  def create_category(category)
+    fail ArgumentError, "category cannot be empty" if category.empty?
+    make_api_call("category/create", {:category => category})
+  end
+
+  def add_category(newsletter, category)
+    fail ArgumentError, "category cannot be empty" if category.empty?
+    fail ArgumentError, "newsletter cannot be empty" if newsletter.empty?
+    make_api_call("category/add", {:category => category, :name => newsletter})
+  end
+  
+  def remove_category(newsletter, category = nil)
+    fail ArgumentError, "newsletter cannot be empty" if newsletter.empty?
+    make_api_call("category/remove", {:category => category, :name => newsletter})
+  end
+  
+  def get_list(category = nil)
+    parameters        = { }
+    parameters[:category] = category if category
+    make_api_call("category/list", parameters)
+  end
+  alias_method :list_categories, :get_list
   
   #############
   ### Lists ###
