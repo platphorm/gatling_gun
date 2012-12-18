@@ -14,11 +14,11 @@ SPEC = Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["James Edward Gray II"]
   s.email       = ["james@graysoftinc.com"]
-  s.homepage    = "https://github.com/okrb/gatling_gun"
+  s.homepage    = "https://github.com/anilrh/gatling_gun"
   s.summary     = "A Ruby library wrapping SendGrid's Newsletter API."
   s.description = <<-END_DESCRIPTION.gsub(/\s+/, " ").strip
   A library for working with SendGrid's Newsletter API.  The code is intended
-  for managing and sending newletters.
+  for managing and sending newletters. Forked from original to support ruby 1.8.7 and add a few methods (notably category support).
   END_DESCRIPTION
 
   s.required_ruby_version     = ">= 1.8.7"
