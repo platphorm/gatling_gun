@@ -16,12 +16,31 @@ class GatlingGun
       http.verify_mode  = OpenSSL::SSL::VERIFY_PEER
       http.verify_depth = 5
       post              = Net::HTTP::Post.new(url.path)
-      post.set_form_data(@parameters)
+      parameters = RUBY_VERSION < "1.9" ? normalize_array_params(@parameters) : @parameters
+      post.set_form_data(parameters)
       Response.new(http.start { |session| session.request(post) })
     rescue Timeout::Error, Errno::EINVAL,        Errno::ECONNRESET,
            EOFError,       Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError,
            Net::ProtocolError => error
       Response.new("error" => error.message)
     end
+
+    private
+
+    def normalize_array_params(params)
+      result = {}
+      params.each do |k,v|
+        case v
+        when Array
+          v.each_with_index do |val,i|
+            result["#{k.to_s}[]"] = val.to_s
+          end
+        else
+          result[k.to_s] = v.to_s
+        end
+      end
+      result
+    end
+
   end
 end
