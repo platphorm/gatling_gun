@@ -83,7 +83,7 @@ class GatlingGun
     make_api_call("category/remove", {:category => category, :name => newsletter})
   end
   
-  def list_categories(category = nil)
+  def get_categories(category = nil)
     parameters        = { }
     parameters[:category] = category if category
     make_api_call("category/list", parameters)
@@ -226,7 +226,10 @@ class GatlingGun
   #######
   
   def make_api_call(action, parameters = { })
-    ApiCall.new( action, parameters.merge( :api_user => @api_user,
-                                           :api_key =>  @api_key ) ).response
+    response = ApiCall.new( action, parameters.merge( :api_user => @api_user,
+                                                      :api_key =>  @api_key ) ).response
+
+    Rails.logger.info "SendGrid: Action:#{action}, Parameters: #{parameters}, Response: #{response}"
+    response
   end
 end
