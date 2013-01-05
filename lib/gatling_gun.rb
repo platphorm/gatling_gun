@@ -83,12 +83,12 @@ class GatlingGun
     make_api_call("category/remove", {:category => category, :name => newsletter})
   end
   
-  def get_list(category = nil)
+  def list_categories(category = nil)
     parameters        = { }
     parameters[:category] = category if category
     make_api_call("category/list", parameters)
   end
-  alias_method :list_categories, :get_list
+  alias_method :list_categories, :get_categories
   
   #############
   ### Lists ###
