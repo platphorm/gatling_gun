@@ -1,6 +1,6 @@
 class GatlingGun
   class ApiCall
-    BASE_URL = "https://sendgrid.com/api/newsletter"
+    BASE_URL = "https://sendgrid.com/api"
     CA_PATH  = File.join(File.dirname(__FILE__), *%w[.. .. data ca-bundle.crt])
     
     def initialize(action, parameters)
@@ -28,15 +28,15 @@ class GatlingGun
     private
 
     def normalize_array_params(params)
-      result = {}
-      params.each do |k,v|
+      result = []
+      params.to_a.each do |k,v|
         case v
         when Array
-          v.each_with_index do |val,i|
-            result["#{k.to_s}[]"] = val.to_s
+          v.each do |av|
+            result << ["#{k.to_s}[]", av]
           end
         else
-          result[k.to_s] = v.to_s
+          result << [k,v]
         end
       end
       result
@@ -44,3 +44,4 @@ class GatlingGun
 
   end
 end
+

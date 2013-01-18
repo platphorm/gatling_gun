@@ -1,6 +1,6 @@
 DIR     = File.dirname(__FILE__)
 LIB     = File.join(DIR, *%w[lib gatling_gun.rb])
-VERSION = open(LIB) { |lib|
+GG_VERSION = open(LIB) { |lib|
   lib.each { |line|
     if v = line[/^\s*VERSION\s*=\s*(['"])(\d\.\d\.\d)\1/, 2]
       break v
@@ -10,7 +10,7 @@ VERSION = open(LIB) { |lib|
 
 SPEC = Gem::Specification.new do |s|
   s.name        = "gatling_gun"
-  s.version     = VERSION
+  s.version     = GG_VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["James Edward Gray II"]
   s.email       = ["james@graysoftinc.com"]

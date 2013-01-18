@@ -11,6 +11,7 @@ class GatlingGun
         @success            = response.is_a? Net::HTTPSuccess
         @http_response_code = response.code
         @data               = parse(response.body)
+        @success = false if @data.class == Hash && @data["error"].present?
       end
     end
     
