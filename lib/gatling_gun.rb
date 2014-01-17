@@ -238,10 +238,23 @@ class GatlingGun
   def get_unsubscribe(details = {})
     make_api_call("unsubscribes/get", details)
   end
+
+  ############################
+  ### General user reports ###
+  ############################
+
+  def delete_user_reports(event_type)
+    make_api_call(*DELETE_USER_REPORT_ARGS[event_type])
+  end
   
   #######
   private
   #######
+
+  DELETE_USER_REPORT_ARGS = {
+    :unsubscribe => ['unsubscribes.delete'],
+    :spam_report => ['spamreports.delete', {:delete_all => 1}]
+  }
 
   def make_newsletter_api_call(action, parameters = { })
     make_api_call("newsletter/#{action}", parameters)
