@@ -8,7 +8,7 @@ require "gatling_gun/api_call"
 require "gatling_gun/response"
 
 class GatlingGun
-  VERSION = "0.0.5"
+  VERSION = "0.0.6"
   
   def initialize(api_user, api_key)
     @api_user = api_user
@@ -252,7 +252,7 @@ class GatlingGun
   #######
 
   DELETE_USER_REPORT_ARGS = {
-    :unsubscribe => ['unsubscribes.delete'],
+    :unsubscribe => ['unsubscribes.delete', {:delete_all => 1}],
     :spam_report => ['spamreports.delete', {:delete_all => 1}]
   }
 
