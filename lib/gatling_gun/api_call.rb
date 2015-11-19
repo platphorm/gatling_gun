@@ -1,13 +1,13 @@
 class GatlingGun
   class ApiCall
-    BASE_URL = "https://sendgrid.com/api"
+    BASE_URL = "https://api.sendgrid.com"
     CA_PATH  = File.join(File.dirname(__FILE__), *%w[.. .. data ca-bundle.crt])
-    
+
     def initialize(action, parameters)
       @action     = action
       @parameters = parameters
     end
-    
+
     def response
       url               = URI.parse("#{BASE_URL}/#{@action}.json")
       http              = Net::HTTP.new(url.host, url.port)
