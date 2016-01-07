@@ -1,6 +1,6 @@
 class GatlingGun
   class ApiCall
-    BASE_URL = "https://api.sendgrid.com"
+    BASE_URL = "https://api.sendgrid.com/api"
     CA_PATH  = File.join(File.dirname(__FILE__), *%w[.. .. data ca-bundle.crt])
 
     def initialize(action, parameters)
